@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500&family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+:root {
+    --background: #202124;
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size)*0.9);
+}
+
+body {
+    background: var(--background)
+}
+header {
+    text-align: center;
+    color: white;
+    font: 400 12pt "Roboto", sans-serif;
+    margin: 64px 0 64px 0;
+}
+
+main.end {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.board {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px white solid;
+    border-top: none;
+    border-right: none;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.cell:nth-child(3n+1) {
+    border-left: none;
+}
+
+.cell:nth-child(n + 7) {
+    border-bottom: none;
+}
+
+.cell.X::before,
+.cell.X::after,
+.cell.O::before {
+    background-color: white;
+}
+
+.board.X .cell:not(.X):not(.O):hover::before,
+.board.X .cell:not(.X):not(.O):hover::after,
+.board.O .cell:not(.X):not(.O):hover::before{
+    background-color: #3d3d3d;
+}
+
+
+.board.X .cell:not(.X):not(.O):hover::before,
+.board.X .cell:not(.X):not(.O):hover::after,
+.cell.X::before,
+.cell.X::after {
+    content: "";
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+
+    position: absolute;
+}
+
+.board.X .cell:hover::before,
+.cell.X::before{
+    transform: rotate(45deg);
+}
+
+.board.X .cell:hover::after,
+.cell.X::after{
+    transform: rotate(-45deg);
+}
+
+
+.board.O .cell:not(.X):not(.O):hover::before,
+.board.O .cell:not(.X):not(.O):hover::after,
+.cell.O::before,
+.cell.O::after {
+    content: "";
+
+    border-radius: 50%;
+
+    position: absolute;
+}
+
+.board.O .cell:not(.X):not(.O):hover::before,
+.cell.O::before{
+    width: calc(var(--mark-size)*0.9);
+    height: calc(var(--mark-size)*0.9);
+}
+
+.board.O .cell:not(.X):not(.O):hover::after,
+.cell.O::after{
+    width: calc(var(--mark-size)*0.6);
+    height: calc(var(--mark-size)*0.6);
+
+    background-color: var(--background);
+}
+
+.cell.X,
+.cell.O {
+    cursor: not-allowed;
+}
+
+.game-end-message{
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    font: 400 24pt "Roboto", sans-serif;
+}
+
+.game-end-message button {
+    font-size: 14pt;
+    background-color: var(--background);
+    border: 1px solid white;
+    color: white;
+    padding: 8px;
+    border-radius: 15px;
+    margin: 8px;
+    cursor: pointer;
+}
+
+.game-end-message button:hover{
+    filter: brightness(130%);
+}
+
+.game-end-message.show {
+    display: flex;
+}
